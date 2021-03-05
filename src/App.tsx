@@ -1,17 +1,32 @@
 import React from "react";
 import "./App.css";
+import Form from './Components/Form';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="images/CUEgenerator.png" className="App-logo" alt="logo" />
-        <p>powered by React</p>
-        <p>
-          provisioned by GitHub Actinos
-          (FirebaseExtended/action-hosting-deploy@v0)
-        </p>
-      </header>
+    <div id="container">
+      <h1
+        id="logo"
+        style={{ backgroundImage: `url("/images/CUEgenerator.png")` }}
+      >
+        <a href=".">CUEgenerator</a>
+      </h1>
+      <span id="counter">(123)</span>
+
+      <div id="feedback">
+        <div className="links">
+          <a
+            href="https://github.com/dVaffection/cuegenerator/issues"
+            target="_blank" rel="noreferrer"
+          >
+            Leave your feedback on GitHub
+          </a>
+        </div>
+      </div>
+
+      <div className="clear"></div>
+
+      <Form />
     </div>
   );
 }
