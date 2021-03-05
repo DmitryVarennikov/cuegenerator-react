@@ -1,0 +1,79 @@
+#save {
+  float: right;
+  margin: 0;
+  padding: 0 10px;
+  background-color: #fcdf79;
+  font-size: 17px;
+  font-weight: bold;
+  height: 28px;
+}
+
+label {
+  color: #fff9e6;
+}
+
+input,
+textarea,
+select {
+  background-color: #fff9e6;
+  border: 1px solid #000;
+  resize: none;
+
+  -moz-border-radius: 3px; /* Firefox */
+  -webkit-border-radius: 3px; /* Safari, Chrome */
+  border-radius: 3px; /* CSS3 */
+}
+
+#cue_fields {
+  margin-top: 20px;
+  float: left;
+}
+
+#cue_fields .field {
+  clear: both;
+  line-height: 25px;
+}
+
+#cue_fields .field label {
+  float: left;
+  display: block;
+  width: 100px;
+  padding-right: 10px;
+}
+
+#cue_fields .field label sup a {
+  color: #fcdf79;
+  font-size: 12px;
+}
+
+#cue_fields .field input,
+#cue_fields .field textarea,
+#cue_fields .field select {
+  float: left;
+  display: block;
+  width: 350px;
+  height: 20px;
+  margin: 0;
+}
+
+#cue_fields .field textarea#tracklist {
+  height: 200px;
+}
+
+#cue_fields .field textarea#regions_list {
+  height: 100px;
+}
+
+#cue_ready {
+  margin-left: 20px;
+  margin-top: 20px;
+  float: right;
+}
+
+#cue_ready #cue {
+  height: 480px;
+  width: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff9e6;
+}

@@ -10,8 +10,6 @@
 
 # production
 /build
-!/public-prod/.gitignore
-/public-prod
 
 # misc
 .DS_Store
