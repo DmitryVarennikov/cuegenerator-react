@@ -1,3 +1,9 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+}
+
 body {
   font-family: "Trebuchet MS", Arial, Tahoma;
   background-color: #4d4d4d;
@@ -45,4 +51,23 @@ span#counter {
 
 .clear {
   clear: both;
+}
+
+#help {
+  width: 900px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#help h2 {
+  font-size: 22px;
+}
+
+#help img {
+  margin: 10px 0;
+  border: 1px solid #000;
+}
+
+#help div.delimiter {
+  margin-bottom: 50px;
 }

@@ -1,15 +1,26 @@
+import { useEffect, useState } from "react";
 import "./Form.css";
 import FileTypes from "./Form/FileTypes";
 
 export default function Form() {
+  const [clientViewportHeight, setClientViewportHeight] = useState<number>(0);
+  const [tracklistHeight, setTracklistHeight] = useState<string | number>(
+    "auto"
+  );
+  const [cueHeight, setCueHeight] = useState<string | number>("auto");
+
+  useEffect(() => {
+    setClientViewportHeight(window.innerHeight);
+    setTracklistHeight(clientViewportHeight - 20 - 375);
+    setCueHeight(clientViewportHeight - 20 - 173);
+  });
+
+  console.log("clientViewportHeight", clientViewportHeight);
+  console.log("tracklistHeight", tracklistHeight);
+
   return (
     <form>
-      <input
-        type="submit"
-        name="save"
-        id="save"
-        value="Save Cue to File"
-      />
+      <input type="submit" name="save" id="save" value="Save Cue to File" />
       <div className="clear"></div>
 
       <div id="cue_fields">
@@ -59,10 +70,11 @@ export default function Form() {
             rows={5}
             cols={10}
             value=""
+            style={{ height: tracklistHeight }}
           ></textarea>
         </div>
         <div className="field">
-          <label htmlFor="tracklist">
+          <label htmlFor="regions_list">
             Timings:{" "}
             <sup>
               <a href="help.html" target="new">
@@ -88,7 +100,7 @@ export default function Form() {
           rows={5}
           cols={10}
           readOnly={true}
-          style={{ backgroundImage: `url("/images/read-only.gif")` }}
+          style={{ backgroundImage: `url("/images/read-only.gif")`, height: cueHeight }}
         ></textarea>
       </div>
     </form>
