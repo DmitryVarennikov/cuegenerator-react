@@ -16,7 +16,7 @@ function App() {
       <div id="feedback">
         <div className="links">
           <a
-            href="https://github.com/dVaffection/cuegenerator/issues"
+            href="https://github.com/dVaffection/cuegenerator-react"
             target="_blank" rel="noreferrer"
           >
             Leave your feedback on GitHub

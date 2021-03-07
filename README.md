@@ -1,3 +1,14 @@
+CUEgenerator
+=============
+A small utility which facilitates creating cue files from track lists.
+
+# How to report bugs
+
+Please create [a new issue](https://github.com/dVaffection/cuegenerator-react/issues) in this repository and leave as many details as possible.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
