@@ -1,22 +1,55 @@
-import { useEffect, useState } from "react";
-import "./Form.css";
-import FileTypes from "./Form/FileTypes";
+import { useEffect, useState } from 'react';
+import _ from 'lodash';
+import './Form.css';
+import FormSelect from './Form/FormSelect';
+import { formHandler } from '../Cue';
+
+type FORM_STATE_TYPE = {
+  performer: string;
+  title: string;
+  fileName: string;
+  fileType: string;
+  trackList: string;
+  regionsList: string;
+  cue: string;
+};
 
 export default function Form() {
+  const fileTypes = ['MP3', 'AAC', 'AIFF', 'ALAC', 'BINARY', 'FLAC', 'MOTOROLA', 'WAVE'];
+  const FORM_INIT_STATE = {
+    performer: '',
+    title: '',
+    fileName: '',
+    fileType: fileTypes[0],
+    trackList: '',
+    regionsList: '',
+    cue: '',
+  };
+
+  const [formState, setFormState] = useState<FORM_STATE_TYPE>(FORM_INIT_STATE);
   const [clientViewportHeight, setClientViewportHeight] = useState<number>(0);
-  const [tracklistHeight, setTracklistHeight] = useState<string | number>(
-    "auto"
-  );
-  const [cueHeight, setCueHeight] = useState<string | number>("auto");
+  const [tracklistHeight, setTracklistHeight] = useState<string | number>('auto');
+  const [cueHeight, setCueHeight] = useState<string | number>('auto');
 
   useEffect(() => {
     setClientViewportHeight(window.innerHeight);
     setTracklistHeight(clientViewportHeight - 20 - 375);
     setCueHeight(clientViewportHeight - 20 - 173);
-  });
+  }, [clientViewportHeight]);
 
-  console.log("clientViewportHeight", clientViewportHeight);
-  console.log("tracklistHeight", tracklistHeight);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const name = event.target.name;
+    const value = event.target.value || '';
+    const preUpdatedState = { ...formState, ...{ [name]: value } };
+
+    const { performer, title, fileName, fileType, trackList, regionsList } = preUpdatedState;
+    const cue = formHandler.createCue(performer, title, fileName, fileType, trackList, regionsList);
+    const updatedState = { ...preUpdatedState, ...{ cue } };
+
+    setFormState(updatedState);
+  };
+
+  const cueOnFocusHandler = _.once((event: any) => event.target.select());
 
   return (
     <form>
@@ -25,26 +58,19 @@ export default function Form() {
 
       <div id="cue_fields">
         <div className="field">
-          <label htmlFor="performer">Performer:</label>
+          <label>Performer:</label>
           <input
             tabIndex={1}
             autoComplete="off"
             type="text"
-            id="performer"
+            onChange={onChange}
             name="performer"
-            value=""
+            value={formState.performer}
           />
         </div>
         <div className="field">
-          <label htmlFor="title">Title:</label>
-          <input
-            tabIndex={2}
-            autoComplete="off"
-            type="text"
-            id="title"
-            name="title"
-            value=""
-          />
+          <label>Title:</label>
+          <input tabIndex={2} autoComplete="off" type="text" onChange={onChange} name="title" value={formState.title} />
         </div>
         <div className="field">
           <label htmlFor="filename">File name:</label>
@@ -52,30 +78,31 @@ export default function Form() {
             tabIndex={3}
             autoComplete="off"
             type="text"
-            id="filename"
-            name="filename"
-            value=""
+            onChange={onChange}
+            name="fileName"
+            value={formState.fileName}
           />
         </div>
         <div className="field">
-          <label htmlFor="filetype">File type:</label>
-          {FileTypes()}
+          <label>File type:</label>
+          {FormSelect(fileTypes, 'fileType', formState.fileType, onChange, 4)}
         </div>
         <div className="field">
-          <label htmlFor="tracklist">Tracklist:</label>
+          <label>Tracklist:</label>
           <textarea
             tabIndex={5}
-            id="tracklist"
-            name="tracklist"
             rows={5}
             cols={10}
-            value=""
             style={{ height: tracklistHeight }}
+            id="tracklist"
+            name="trackList"
+            onChange={onChange}
+            value={formState.trackList}
           ></textarea>
         </div>
         <div className="field">
-          <label htmlFor="regions_list">
-            Timings:{" "}
+          <label>
+            Timings:{' '}
             <sup>
               <a href="help.html" target="new">
                 Help
@@ -84,11 +111,12 @@ export default function Form() {
           </label>
           <textarea
             tabIndex={6}
-            id="regions_list"
-            name="regions_list"
             rows={5}
             cols={10}
-            value=""
+            id="regions_list"
+            name="regionsList"
+            onChange={onChange}
+            value={formState.regionsList}
           ></textarea>
         </div>
       </div>
@@ -96,11 +124,15 @@ export default function Form() {
         <input type="hidden" name="generate" id="generate" />
         <textarea
           id="cue"
-          name="cue"
           rows={5}
           cols={10}
           readOnly={true}
-          style={{ backgroundImage: `url("/images/read-only.gif")`, height: cueHeight }}
+          style={{
+            backgroundImage: `url("/images/read-only.gif")`,
+            height: cueHeight,
+          }}
+          value={formState.cue}
+          onFocus={cueOnFocusHandler}
         ></textarea>
       </div>
     </form>
