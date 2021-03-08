@@ -2,9 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('check container element', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Leave your feedback on GitHub/i);
-  expect(linkElement).toBeInTheDocument();
-  expect(linkElement.getAttribute('href')).toBe('https://github.com/DmitryVarennikov/cuegenerator-react');
+  const element = screen.getByTestId('container');
+  expect(element).toBeInTheDocument();
+  expect(element.getAttribute('id')).toBe('container');
 });

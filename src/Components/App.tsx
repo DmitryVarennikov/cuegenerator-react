@@ -5,9 +5,9 @@ import Help from './Help';
 import Header from './Header';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
-    <div id="container">
+    <div id="container" data-testid={'container'}>
       <Header />
       <BrowserRouter>
         <Switch>
@@ -19,5 +19,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
