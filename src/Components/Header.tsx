@@ -8,7 +8,7 @@ export default function Header() {
 
       <div id="feedback">
         <div className="links">
-          <a href="https://github.com/dVaffection/cuegenerator-react" target="_blank" rel="noreferrer">
+          <a href="https://github.com/DmitryVarennikov/cuegenerator-react" target="_blank" rel="noreferrer">
             Leave your feedback on GitHub
           </a>
         </div>
