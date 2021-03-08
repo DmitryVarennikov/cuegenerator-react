@@ -1,4 +1,5 @@
 import React from 'react';
+import { RegionsList } from '../types';
 import Parser, { ParserHelper } from './Parser';
 
 const parserHelper = new ParserHelper();
@@ -52,7 +53,7 @@ describe('Parser', () => {
     expect(actual).toStrictEqual(expected);
   });
   test('parseRegionsList', () => {
-    var regionsList = {
+    const regionsList: { [key: string]: string } = {
       ' Marker 06      01:10:38:52': '70:38:52',
       ' 22                     02:01:50.04': '121:50:04',
       ' 22                     02:01:50,04': '121:50:04',
@@ -61,9 +62,9 @@ describe('Parser', () => {
       '01 120:10.01 (Split)': '120:10:01',
     };
 
-    Object.keys(regionsList).forEach(function (key) {
-      var actual = parser.parseRegionsList(key);
-      var expected = regionsList[key];
+    Object.keys(regionsList).forEach((key: string) => {
+      const actual = parser.parseRegionsList(key);
+      const expected = regionsList[key];
       expect(actual[0]).toBe(expected);
     });
   });
@@ -95,7 +96,7 @@ describe('ParserHelper', () => {
     expect(actual).toBe(expected);
   });
   test('separateTime', () => {
-    const timePerformers = {
+    const timePerformers: { [key: string]: { time: string; residue: string } } = {
       '[08:45] 03. 8 Ball': {
         time: '08:45',
         residue: '] 03. 8 Ball',
@@ -138,7 +139,7 @@ describe('ParserHelper', () => {
     });
   });
   test('cleanOffTime', () => {
-    const performers = {
+    const performers: { [key: string]: string } = {
       '] Giuseppe': 'Giuseppe',
       '02. Space Manoeuvres': 'Space Manoeuvres',
       '04 Mr. Fluff': 'Mr. Fluff',
@@ -153,7 +154,7 @@ describe('ParserHelper', () => {
     });
   });
   test('castTime', () => {
-    const times = {
+    const times: { [key: string]: string } = {
       // h:m:s|m:s -> m:s:f
       '999:02:28': '59942:28:00',
       '9999:53': '9999:53:00',
