@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import './Form.css';
 import FormSelect from './Form/FormSelect';
@@ -104,9 +105,7 @@ export default function Form() {
           <label>
             Timings:{' '}
             <sup>
-              <a href="help.html" target="new">
-                Help
-              </a>
+              <Link to="/help" target="new">Help</Link>
             </sup>
           </label>
           <textarea

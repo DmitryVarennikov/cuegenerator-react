@@ -1,0 +1,34 @@
+#logo {
+  float: left;
+  background-position: left top;
+  background-repeat: no-repeat;
+  width: 217px;
+  height: 58px;
+}
+
+#logo a {
+  color: transparent;
+}
+
+span#counter {
+  color: #fcdf79;
+}
+
+#feedback {
+  float: right;
+}
+
+#feedback .links {
+  float: right;
+}
+#feedback a {
+  color: #fcdf79;
+}
+
+#feedback a:hover {
+  color: #fff9e6;
+}
+
+.clear {
+  clear: both;
+}

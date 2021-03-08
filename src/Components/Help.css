@@ -1,0 +1,27 @@
+#help {
+  width: 900px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#help ul.table_of_contents {
+  list-style: none;
+  margin: 40px 0;
+}
+#help ul.table_of_contents li a {
+  color: #fcdf79;
+}
+
+#help h2 {
+  font-size: 22px;
+  color: #fcdf79;
+}
+
+#help img {
+  margin: 10px 0;
+  border: 1px solid #000;
+}
+
+#help div.delimiter {
+  margin-bottom: 100px;
+}

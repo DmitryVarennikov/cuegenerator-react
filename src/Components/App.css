@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: "Trebuchet MS", Arial, Tahoma;
+  font-family: 'Trebuchet MS', Arial, Tahoma;
   background-color: #4d4d4d;
   font-size: 17px;
 }
@@ -16,58 +16,4 @@ body {
   margin-top: 20px;
   padding: 20px;
   overflow: auto;
-}
-
-#logo {
-  float: left;
-  background-position: left top;
-  background-repeat: no-repeat;
-  width: 217px;
-  height: 58px;
-}
-
-#logo a {
-  color: transparent;
-}
-
-span#counter {
-  color: #FCDF79;
-}
-
-#feedback {
-  float: right;
-}
-
-#feedback .links {
-  float: right;
-}
-#feedback a {
-  color: #FCDF79;
-}
-
-#feedback a:hover {
-  color: #fff9e6;
-}
-
-.clear {
-  clear: both;
-}
-
-#help {
-  width: 900px;
-  margin: auto;
-  margin-top: 20px;
-}
-
-#help h2 {
-  font-size: 22px;
-}
-
-#help img {
-  margin: 10px 0;
-  border: 1px solid #000;
-}
-
-#help div.delimiter {
-  margin-bottom: 50px;
 }
