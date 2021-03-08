@@ -266,7 +266,7 @@ export default class Parser {
         time = matches[0].split(':');
         const mn = parseInt(time[0], 10);
         const sc = parseInt(time[1], 10);
-        var fr = parseInt(time[2], 10);
+        const fr = parseInt(time[2], 10);
 
         const timeEntry = (mn < 10 ? '0' + mn : mn) + ':' + (sc < 10 ? '0' + sc : sc) + ':' + (fr < 10 ? '0' + fr : fr);
         regionsList.push(timeEntry);
