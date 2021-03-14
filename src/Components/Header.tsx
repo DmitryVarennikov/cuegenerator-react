@@ -1,4 +1,5 @@
 import './Header.css';
+import Counter from './Heder/Counter';
 
 export default function Header() {
   return (
@@ -6,7 +7,7 @@ export default function Header() {
       <h1 id="logo" style={{ backgroundImage: `url("/images/CUEgenerator.png")` }}>
         <a href=".">CUEgenerator</a>
       </h1>
-      <span id="counter">(123)</span>
+      <Counter />
 
       <div id="feedback">
         <div className="links">
