@@ -1,18 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { api } from '../../Services';
+import CounterContext from '../CounterContext';
 
 export default function Counter() {
-  const [counter, setCounter] = useState<number>(0);
+  const { counter, setCounter } = useContext(CounterContext);
 
   useEffect(() => {
     const fetchCounter = async () => {
       const counter = await api.getCounter();
-      if (counter) {
-        setCounter(counter);
-      }
+      if (counter) setCounter(counter);
     };
     fetchCounter();
   }, []);
 
-  return <span id="counter">{counter}</span>;
+  return <span id="counter">({counter})</span>;
 }

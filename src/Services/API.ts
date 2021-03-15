@@ -61,4 +61,17 @@ export default class API {
       return counter;
     }
   }
+  public async bumpCounter(
+    performer: string,
+    title: string,
+    fileName: string,
+    cue: string
+  ): Promise<number | undefined> {
+    const body = JSON.stringify({ performer, title, fileName, cue });
+    const response = await this.fetch('/counter', { method: 'POST', body });
+    if (response) {
+      const { counter } = await response.json();
+      return counter;
+    }
+  }
 }
