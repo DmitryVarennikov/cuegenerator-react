@@ -6,52 +6,33 @@ A small utility which facilitates creating cue files from track lists.
 
 Please create [a new issue](https://github.com/dVaffection/cuegenerator-react/issues) in this repository and leave as many details as possible.
 
+# Documentation
+## Track list highlights
+
+* In case if a local performer is absent the global one is used, e.g.
+![](https://user-images.githubusercontent.com/457097/111331254-b81dff00-863e-11eb-9b80-cc7504f4d6fd.png)
+
+* Performer and title track separators:
+    * `' - '` — 45 (hyphen-minus)
+    * `' – '` — 8211 (en dash)
+    * `' ‒ '` — 8210 (figure dash)
+    * `' — '` — 8212 (em dash)
+    * `' ― '` — 8213 (horizontal bar)
+* Timings recognition:
+    * `[08:45] 03. 8 Ball` → `08:45`
+    * `01.[18:02] Giuseppe` → `18:02`
+    * `10:57 02. Space Manoeuvres` → `10:57`
+    * `56:53 T.O.M'` → `56:53`
+    * `1:02:28 Mossy` → `62:28`
+
+## Regions list recognition
+* Sony Sound Forge format `dd:dd:dd[.,]dd`
+* Adobe Audition format `dd:dd:dd:dd`
+* Audacity format `ddddd.dddddd`
 
 
+# For developers
 
-# Getting Started with Create React App
+This is a React frontend to the [BFF](https://github.com/DmitryVarennikov/cuegenerator-server). 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
