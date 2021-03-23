@@ -1,6 +1,6 @@
 {
   "name": "cuegenerator-react",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
@@ -20,7 +20,8 @@
     "build": "react-scripts build",
     "test": "tsc -v && tsc && react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && firebase deploy --only hosting --project cuegenerator --json"
+    "deploy": "npm run build && firebase deploy --only hosting --project cuegenerator --json",
+    "release": "standard-version"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +51,7 @@
     "@types/react-router": "^5.1.12",
     "@types/react-router-dom": "^5.1.7",
     "prettier": "^2.2.1",
+    "standard-version": "^9.1.1",
     "typescript": "^4.2.2"
   }
 }
