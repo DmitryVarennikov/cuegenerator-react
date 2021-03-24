@@ -21,7 +21,8 @@
     "test": "tsc -v && tsc && react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy --only hosting --project cuegenerator --json",
-    "release": "standard-version"
+    "release": "standard-version",
+    "postrelease": "git push --follow-tags origin main"
   },
   "eslintConfig": {
     "extends": [
