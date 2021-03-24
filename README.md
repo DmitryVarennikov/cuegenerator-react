@@ -45,4 +45,4 @@ GitHub Actions provide 2 workflows which deploy code to the Firebase Hosting
 
 ## How to release
 
-Run `npm run release` and push a freshly produced commit (by `standard-version`) with relevant annotated tags `git push --follow-tags` to start a deployment
+To make a release run `npm run release`. That's it! `standard-version` will run the `postrelease` script in the `package.json` which will take care of the rest.
