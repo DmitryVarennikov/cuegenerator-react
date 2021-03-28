@@ -125,6 +125,11 @@ describe('ParserHelper', () => {
         time: '999:02:28',
         residue: 'Mossy',
       },
+      // separateTime plays in tandem with castTime 
+      '2:28 NO LEADING ZERO': {
+        time: '2:28',
+        residue: 'NO LEADING ZERO',
+      },
     };
     Object.keys(timePerformers).forEach((key) => {
       const actual = parserHelper.separateTime(key);
@@ -158,6 +163,7 @@ describe('ParserHelper', () => {
       // h:m:s|m:s -> m:s:f
       '999:02:28': '59942:28:00',
       '9999:53': '9999:53:00',
+      '3:28': '03:28:00',
       '1:02:28': '62:28:00',
       '56:63': '56:63:00',
       '246:10': '246:10:00',

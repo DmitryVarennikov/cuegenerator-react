@@ -52,8 +52,8 @@ export class ParserHelper {
     // but I still increased "h:m:f" up to 999 hours just in case
     // https://github.com/dVaffection/cuegenerator/issues/14
 
-    //                          01.             9999:53 | 999:02:28
-    var pattern = /^(?:\d{2}\.)?\[?((?:\d{1,3}:)?\d{2,4}:\d{2})\]?.*$/i;
+    //                          01.     9999:53 | 999:02:28
+    var pattern = /^(?:\d{2}\.)?\[?((?:\d{1,3}:)?\d{1,4}:\d{2})\]?.*$/i;
     var matches = value.match(pattern);
     if (matches && matches[1]) {
       time = matches[1].trim();
@@ -77,7 +77,7 @@ export class ParserHelper {
   castTime(value: string) {
     value = value.trim();
 
-    let pattern = /^\d{1,3}:\d{2}:\d{2}$/;
+    let pattern = /^\d{1,4}:\d{2}:\d{2}$/;
     let matches = value.match(pattern);
     if (matches) {
       var times = value.split(':');
@@ -87,10 +87,12 @@ export class ParserHelper {
       mn = hr * 60 + mn;
       value = mn + ':' + sc + ':00';
     } else {
-      pattern = /^\d{2,4}:\d{2}$/;
+      pattern = /(^\d{1,4}):(\d{2})$/;
       matches = value.match(pattern);
       if (matches) {
-        value = value + ':00';
+        const mn = matches[1].padStart(2, '0');
+        const sc = matches[2].padStart(2, '0');
+        value = `${mn}:${sc}:00`;
       } else {
         value = '00:00:00';
       }
