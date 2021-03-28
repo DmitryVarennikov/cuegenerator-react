@@ -6,6 +6,7 @@ import FormSelect from './Form/FormSelect';
 import { formHandler } from '../Cue';
 import { api } from '../Services';
 import CounterContext from './CounterContext';
+import { makeCueFileName } from '../Utils';
 
 type FORM_STATE_TYPE = {
   performer: string;
@@ -71,7 +72,7 @@ export default function Form() {
     let url = window.URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
-    a.download = formState.fileName || 'Untitled.cue';
+    a.download = makeCueFileName(formState.fileName);
     a.click();
   };
 
