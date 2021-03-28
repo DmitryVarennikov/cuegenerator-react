@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/dVaffection/cuegenerator-react/compare/v1.0.4...v1.1.0) (2021-03-28)
+
+
+### Features
+
+* Parse time in track list without leading zero for minutes ([8eb37de](https://github.com/dVaffection/cuegenerator-react/commit/8eb37de4d2d9b627750d04bfa9c14bf3973e4055))
+
 ### [1.0.4](https://github.com/dVaffection/cuegenerator-react/compare/v1.0.3...v1.0.4) (2021-03-28)
 
 
