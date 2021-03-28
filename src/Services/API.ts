@@ -2,10 +2,8 @@ import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 
 export default class API {
-  private basePath: string;
   private token: string | undefined = undefined;
-  constructor(basePath: string) {
-    this.basePath = basePath;
+  constructor(private basePath: string) {
   }
   private url(path: string) {
     return this.basePath + path;
