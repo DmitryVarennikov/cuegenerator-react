@@ -46,7 +46,7 @@ export default class API {
         },
       };
       const options = _.merge(init, addOptions);
-      return fetch(this.url(path), options);
+      return await fetch(this.url(path), options);
     } catch (e) {
       console.error('Error while fetching', { path, addOptions, e });
       // @TODO: show error
