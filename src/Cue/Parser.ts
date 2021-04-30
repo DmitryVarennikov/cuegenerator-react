@@ -109,13 +109,15 @@ export class ParserHelper {
       value = matches[1];
     }
 
-    value = this.removeDoubleQuotes(value);
-
     return value;
   }
 
   removeDoubleQuotes(value: string) {
     return value.replace(/"/g, '');
+  }
+
+  replaceDoubleQuotes(value: string) {
+    return value.replace(/"/g, "'");
   }
 }
 
@@ -137,38 +139,35 @@ export default class Parser {
   }
   parseTrackList(value: string): TrackList {
     const trackList = [];
-    var contents = [],
-      row,
-      performerTitle,
-      timePerformer,
-      timeTitle,
+    let 
       time,
       performer,
       title;
 
-    contents = value.split('\n');
-
-    for (var i = 0, track = 1; i < contents.length; i++, track++) {
-      row = contents[i].trim();
+    const contentInLines = value.split('\n');
+    for (let i = 0, track = 1; i < contentInLines.length; i++, track++) {
+      const row = contentInLines[i].trim();
       if (!row.length) {
         track--;
         continue;
       }
 
-      performerTitle = this.helper.splitTitlePerformer(row);
+      const performerTitle = this.helper.splitTitlePerformer(row);
 
       if (performerTitle.performer) {
-        timePerformer = this.helper.separateTime(performerTitle.performer);
-
+        const timePerformer = this.helper.separateTime(performerTitle.performer);
         time = this.helper.castTime(timePerformer.time);
         performer = this.helper.cleanOffTime(timePerformer.residue);
-        title = this.helper.removeDoubleQuotes(performerTitle.title);
+        title = performerTitle.title;
       } else {
-        timeTitle = this.helper.separateTime(performerTitle.title);
-        time = this.helper.castTime(timeTitle.time);
         performer = '';
+        const timeTitle = this.helper.separateTime(performerTitle.title);
+        time = this.helper.castTime(timeTitle.time);
         title = this.helper.cleanOffTime(timeTitle.residue);
       }
+
+      performer = this.helper.replaceDoubleQuotes(performer);
+      title = this.helper.replaceDoubleQuotes(title);
 
       trackList.push({
         track,

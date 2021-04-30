@@ -32,7 +32,7 @@ describe('Parser', () => {
       {
         performer: 'Bobina',
         time: '02:41:00',
-        title: 'Miami Echoes',
+        title: `Miami 'Echoes'`,
         track: 1,
       },
     ];
@@ -46,7 +46,7 @@ describe('Parser', () => {
       {
         performer: '',
         time: '02:41:00',
-        title: 'Miami Echoes',
+        title: `Miami 'Echoes'`,
         track: 1,
       },
     ];
@@ -93,6 +93,12 @@ describe('ParserHelper', () => {
     const value = 'Elements (EDX "5un5hine" Remix)';
     const actual = parserHelper.removeDoubleQuotes(value);
     const expected = 'Elements (EDX 5un5hine Remix)';
+    expect(actual).toBe(expected);
+  });
+  test('replaceDoubleQuotes', () => {
+    const value = `Elements (EDX "5un5hine" Remix)`;
+    const actual = parserHelper.replaceDoubleQuotes(value);
+    const expected = `Elements (EDX '5un5hine' Remix)`;
     expect(actual).toBe(expected);
   });
   test('separateTime', () => {
