@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/dVaffection/cuegenerator-react/compare/v1.2.0...v1.2.1) (2021-05-01)
+
+
+### Bug Fixes
+
+* Tweak parser to cast minutes to "XX", e.g. "05:12:03" instead of "5:12:03" ([21f3604](https://github.com/dVaffection/cuegenerator-react/commit/21f360474ccf8f9603eb388198d77e22d9bf7ae9))
+
 ## [1.2.0](https://github.com/dVaffection/cuegenerator-react/compare/v1.1.0...v1.2.0) (2021-04-30)
 
 
