@@ -174,6 +174,7 @@ describe('ParserHelper', () => {
       '56:63': '56:63:00',
       '246:10': '246:10:00',
       '': '00:00:00',
+      '00:05:12': '05:12:00',
     };
 
     Object.keys(times).forEach(function (key) {

@@ -75,30 +75,29 @@ export class ParserHelper {
    * @returns mn:sc:fr
    */
   castTime(value: string) {
+    let castTime = '00:00:00';
     value = value.trim();
 
-    let pattern = /^\d{1,4}:\d{2}:\d{2}$/;
-    let matches = value.match(pattern);
+    const pattern = /^\d{1,4}:\d{2}:\d{2}$/;
+    const matches = value.match(pattern);
     if (matches) {
-      var times = value.split(':');
-      var hr = parseInt(times[0], 10);
-      var mn = parseInt(times[1], 10);
-      var sc = times[2];
-      mn = hr * 60 + mn;
-      value = mn + ':' + sc + ':00';
+      const times = value.split(':');
+      const hrParsed = parseInt(times[0], 10);
+      const mnParsed = parseInt(times[1], 10);
+      const sc = times[2].padStart(2, '0');
+      const mn = String(hrParsed * 60 + mnParsed).padStart(2, '0');
+      castTime = mn + ':' + sc + ':00';
     } else {
-      pattern = /(^\d{1,4}):(\d{2})$/;
-      matches = value.match(pattern);
+      const pattern = /(^\d{1,4}):(\d{2})$/;
+      const matches = value.match(pattern);
       if (matches) {
         const mn = matches[1].padStart(2, '0');
         const sc = matches[2].padStart(2, '0');
-        value = `${mn}:${sc}:00`;
-      } else {
-        value = '00:00:00';
+        castTime = `${mn}:${sc}:00`;
       }
     }
 
-    return value;
+    return castTime;
   }
 
   cleanOffTime(value: string) {
@@ -139,10 +138,7 @@ export default class Parser {
   }
   parseTrackList(value: string): TrackList {
     const trackList = [];
-    let 
-      time,
-      performer,
-      title;
+    let time, performer, title;
 
     const contentInLines = value.split('\n');
     for (let i = 0, track = 1; i < contentInLines.length; i++, track++) {
