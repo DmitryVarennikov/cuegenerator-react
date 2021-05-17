@@ -4,19 +4,25 @@ import _ from 'lodash';
 import './Form.css';
 import FormSelect from './Form/FormSelect';
 import { formHandler } from '../Cue';
-import { api } from '../Services';
+import { api, analytics, cueStorage } from '../Services';
 import CounterContext from './CounterContext';
 import { makeCueFileName } from '../Utils';
+import { AnalyticsEvent } from '../Services/Analytics';
+import { CueFormInputs } from '../types';
 
-type FORM_STATE_TYPE = {
-  performer: string;
-  title: string;
-  fileName: string;
-  fileType: string;
-  trackList: string;
-  regionsList: string;
+interface FORM_STATE_TYPE extends CueFormInputs {
   cue: string;
-};
+}
+
+// type FORM_STATE_TYPE = {
+//   performer: string;
+//   title: string;
+//   fileName: string;
+//   fileType: string;
+//   trackList: string;
+//   regionsList: string;
+//   cue: string;
+// };
 
 export default function Form() {
   const fileTypes = ['MP3', 'AAC', 'AIFF', 'ALAC', 'BINARY', 'FLAC', 'MOTOROLA', 'WAVE'];
@@ -34,6 +40,7 @@ export default function Form() {
   const [clientViewportHeight, setClientViewportHeight] = useState<number>(0);
   const [tracklistHeight, setTracklistHeight] = useState<string | number>('auto');
   const [cueHeight, setCueHeight] = useState<string | number>('auto');
+  const [isLoadCueButtonVisible, setLoadCueButtonVisible] = useState<boolean>(false);
   const { setCounter } = useContext(CounterContext);
 
   useEffect(() => {
@@ -41,6 +48,9 @@ export default function Form() {
     setTracklistHeight(clientViewportHeight - 20 - 375);
     setCueHeight(clientViewportHeight - 20 - 173);
   }, [clientViewportHeight]);
+  useEffect(() => {
+    setLoadCueButtonVisible(cueStorage.hasPrevCue());
+  }, []);
 
   const anyInputOnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const name = event.target.name;
@@ -54,11 +64,15 @@ export default function Form() {
     setFormState(updatedState);
   };
   const cueOnFocusHandler = _.once((event: any) => event.target.select());
-  const submitButtonOnClick = async (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
-
+  const saveButtonOnClick = async (event: React.FormEvent<HTMLInputElement>) => {
+    if (!formState.cue) return;
     bumpCueCounter();
     saveCueAsFile();
+    analytics.logEvent(AnalyticsEvent.CUE_FILE_SAVED);
+
+    const { performer, title, fileName, fileType, trackList, regionsList } = formState;
+    cueStorage.setPrevCue({ performer, title, fileName, fileType, trackList, regionsList });
+    setLoadCueButtonVisible(cueStorage.hasPrevCue());
   };
   const bumpCueCounter = async () => {
     const { performer, title, fileName, cue } = formState;
@@ -66,8 +80,6 @@ export default function Form() {
     if (counter) setCounter(counter);
   };
   const saveCueAsFile = () => {
-    if (!formState.cue) return;
-
     const blob = new Blob([formState.cue], { type: 'octet/stream' });
     let url = window.URL.createObjectURL(blob);
     let a = document.createElement('a');
@@ -75,10 +87,36 @@ export default function Form() {
     a.download = makeCueFileName(formState.fileName);
     a.click();
   };
+  const loadButtonOnClick = async (event: React.FormEvent<HTMLInputElement>) => {
+    const prevCue = cueStorage.getPrevCue();
+    if (prevCue) {
+      const { performer, title, fileName, fileType, trackList, regionsList } = prevCue;
+      const cue = formHandler.createCue(performer, title, fileName, fileType, trackList, regionsList);
+      const updatedState = { ...formState, ...prevCue, ...{ cue } };
+      setFormState(updatedState);
+    }
+
+    analytics.logEvent(AnalyticsEvent.PREV_CUE_LOADED);
+  };
 
   return (
     <form>
-      <input type="submit" name="save" id="save" value="Save Cue to File" onClick={submitButtonOnClick} />
+      <input
+        type="button"
+        name="save"
+        className="form-button save-button"
+        value="Save Cue to File"
+        onClick={saveButtonOnClick}
+      />
+      {isLoadCueButtonVisible && (
+        <input
+          type="button"
+          name="load"
+          className="form-button load-button form-button-margin"
+          value="Load my prev Cue"
+          onClick={loadButtonOnClick}
+        />
+      )}
       <div className="clear"></div>
 
       <div id="cue_fields">

@@ -1,11 +1,16 @@
-#save {
+.form-button {
   float: right;
   margin: 0;
   padding: 0 10px;
-  background-color: #fcdf79;
   font-size: 17px;
   font-weight: bold;
   height: 28px;
+}
+.form-button-margin {
+  margin-right: 10px;
+}
+.save-button {
+  background-color: #fcdf79;
 }
 
 label {
