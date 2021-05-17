@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/dVaffection/cuegenerator-react/compare/v1.2.1...v1.3.0) (2021-05-17)
+
+
+### Features
+
+* Keep the previous cue form state ([0b0b64c](https://github.com/dVaffection/cuegenerator-react/commit/0b0b64ccc72daa62de47f6852e1834fd85fdd5cf))
+
+
+### Bug Fixes
+
+* Change app name to CUEgenerator ([c359579](https://github.com/dVaffection/cuegenerator-react/commit/c359579cfe01aa30c397e31cbbce62501b1b706d)), closes [#27](https://github.com/dVaffection/cuegenerator-react/issues/27)
+
 ### [1.2.1](https://github.com/dVaffection/cuegenerator-react/compare/v1.2.0...v1.2.1) (2021-05-01)
 
 
