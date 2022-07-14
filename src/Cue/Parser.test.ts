@@ -60,6 +60,7 @@ describe('Parser', () => {
       ' 5541.293333    7143.640000     19': '92:21:21',
       ' 50:10:01 \n': '50:10:01',
       '01 120:10.01 (Split)': '120:10:01',
+      'Marker 02\t12:30.862\t0:00.000\tdecimal\tCue\t' : '12:30:64',
     };
 
     Object.keys(regionsList).forEach((key: string) => {
