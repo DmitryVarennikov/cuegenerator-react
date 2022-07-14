@@ -9,7 +9,7 @@ name: Deploy to Firebase Hosting on release merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    if: "startsWith(github.event.head_commit.message, 'fix') or startsWith(github.event.head_commit.message, 'feat')"
+    if: "startsWith(github.event.head_commit.message, 'fix') || startsWith(github.event.head_commit.message, 'feat')"
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && CI=false npm run build
