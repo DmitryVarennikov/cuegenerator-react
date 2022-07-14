@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.4.0 (2022-07-14)
+
+
+### Features
+
+* automatic releases v3 ([4ce5c65](https://github.com/DmitryVarennikov/cuegenerator-react/commit/4ce5c6594c44295a75e8086fded39c3dc8db2779))
+
 ## [1.3.0](https://github.com/dVaffection/cuegenerator-react/compare/v1.2.1...v1.3.0) (2021-05-17)
 
 
