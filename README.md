@@ -45,4 +45,4 @@ GitHub Actions provide 2 workflows which deploy code to the Firebase Hosting
 
 ## How to release
 
-To make a release run `npm run release`. That's it! `standard-version` will run the `postrelease` script in the `package.json` which will take care of the rest.
+A new release happens when a new commit prefixed with *fix* or *feat* is merged to the `main` branch. The logic is described in the `firebase-hosting-merge.yml` file.
