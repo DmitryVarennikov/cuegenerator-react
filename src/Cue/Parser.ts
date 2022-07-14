@@ -184,6 +184,22 @@ export default class Parser {
     for (let i = 0; i < contents.length; i++) {
       const row = contents[i].trim();
 
+      // Audition marker export
+      matches = row.match(/(\d+):(\d+)\.(\d+)\t\d+:\d+\.\d+\tdecimal\tCue/i);
+      if (null != matches) {
+        let mn = Number(matches[1]) || 0;
+        const sc = Number(matches[2]) || 0;
+        const milliseconds = Number(matches[3]) || 0;
+
+        // frames can not be more than 74, so floor them instead of round
+        const fr = Math.floor(parseFloat(0 + '.' + milliseconds) * 75);
+
+        const timeEntry = (mn < 10 ? '0' + mn : mn) + ':' + (sc < 10 ? '0' + sc : sc) + ':' + (fr < 10 ? '0' + fr : fr);
+        regionsList.push(timeEntry);
+
+        continue;
+      }
+
       // Soundforge or Audition
       matches = row.match(/(\d{2}:\d{2}:\d{2}[\.,:]\d{2})/i);
       if (null != matches) {
