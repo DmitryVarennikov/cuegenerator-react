@@ -26,4 +26,5 @@ jobs:
           git config user.email "<>"
       - name: Standard Version
         uses: qzb/standard-version-action@v1.0.5
+      - run: git push --follow-tags origin main
 
