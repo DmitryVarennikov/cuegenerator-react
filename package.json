@@ -19,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "tsc -v && tsc && react-scripts test --watchAll=false --silent",
+    "test": "tsc -v && tsc && react-scripts test --watchAll=false",
     "coverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy --only hosting --project cuegenerator --json",

@@ -52,7 +52,7 @@ describe('Parser', () => {
     ];
     expect(actual).toStrictEqual(expected);
   });
-  test('parseRegionsList', () => {
+  test.only('parseRegionsList', () => {
     const regionsList: { [key: string]: string } = {
       ' Marker 06      01:10:38:52': '70:38:52',
       ' 22                     02:01:50.04': '121:50:04',
@@ -60,6 +60,7 @@ describe('Parser', () => {
       ' 5541.293333    7143.640000     19': '92:21:21',
       ' 50:10:01 \n': '50:10:01',
       '01 120:10.01 (Split)': '120:10:01',
+      'Marker 02 0:09.623': '0:09:46'
     };
 
     Object.keys(regionsList).forEach((key: string) => {

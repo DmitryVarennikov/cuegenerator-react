@@ -184,6 +184,21 @@ export default class Parser {
     for (let i = 0; i < contents.length; i++) {
       const row = contents[i].trim();
 
+      // Adobe Audition
+      matches = row.match(/(\d{1,3}):(\d{2}).(\d{3,6})/i);
+      if (null != matches) {
+        const mn = Number(matches[1]);
+        // do not Number seconds so the value preserves a leading zero (for less than 10)
+        // and we don't use it in numeric calculations anyway
+        const sc = matches[2];
+        const ms = Number(matches[3]);
+        const fr = Math.floor(parseFloat(0 + '.' + ms) * 75);
+
+        const timeEntry = mn + ':' + sc + ':' + fr;
+        regionsList.push(timeEntry);
+        continue;
+      }
+
       // Soundforge or Audition
       matches = row.match(/(\d{2}:\d{2}:\d{2}[\.,:]\d{2})/i);
       if (null != matches) {
