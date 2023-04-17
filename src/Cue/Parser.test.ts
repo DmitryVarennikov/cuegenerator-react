@@ -104,11 +104,11 @@ describe('ParserHelper', () => {
     const timePerformers: { [key: string]: { time: string; residue: string } } = {
       '[08:45] 03. 8 Ball': {
         time: '08:45',
-        residue: '] 03. 8 Ball',
+        residue: '[] 03. 8 Ball',
       },
       '01.[18:02] Giuseppe': {
         time: '18:02',
-        residue: '] Giuseppe',
+        residue: '01.[] Giuseppe',
       },
       '10:57 02. Space Manoeuvres': {
         time: '10:57',
@@ -130,10 +130,13 @@ describe('ParserHelper', () => {
         time: '999:02:28',
         residue: 'Mossy',
       },
-      // separateTime plays in tandem with castTime
       '2:28 NO LEADING ZERO': {
         time: '2:28',
         residue: 'NO LEADING ZERO',
+      },
+      'School 1:42': {
+        time: '1:42',
+        residue: 'School',
       },
     };
     Object.keys(timePerformers).forEach((key) => {

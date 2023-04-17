@@ -53,11 +53,13 @@ export class ParserHelper {
     // https://github.com/dVaffection/cuegenerator/issues/14
 
     //                          01.     9999:53 | 999:02:28
-    var pattern = /^(?:\d{2}\.)?\[?((?:\d{1,3}:)?\d{1,4}:\d{2})\]?.*$/i;
+    var pattern = /(?:\d{2}\.)?\[?((?:\d{1,3}:)?\d{1,4}:\d{2})\]?.*/i;
     var matches = value.match(pattern);
+
     if (matches && matches[1]) {
       time = matches[1].trim();
-      residue = value.substring(value.indexOf(matches[1]) + matches[1].length).trim();
+      // residue = value.substring(value.indexOf(matches[1]) + matches[1].length).trim();
+      residue = value.replace(time, '').trim();
     } else {
       residue = value.trim();
     }
