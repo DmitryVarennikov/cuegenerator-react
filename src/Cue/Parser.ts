@@ -1,4 +1,6 @@
-import { RegionsList, TrackList } from '../types';
+import { Timings, TimeEntry, TrackList } from '../types';
+import { timeEntryToString } from './Formatter';
+import { adobeAudition, audacity, soundforge, standard, winampNero } from './TimingParsers';
 
 export class ParserHelper {
   // that's how we tell performer and title apart
@@ -123,11 +125,9 @@ export class ParserHelper {
 }
 
 export default class Parser {
-  private helper: ParserHelper;
+  static readonly regionsListParsers = [adobeAudition, audacity, soundforge, winampNero, standard];
 
-  constructor(helper: ParserHelper) {
-    this.helper = helper;
-  }
+  constructor(readonly helper: ParserHelper) {}
 
   parsePerformer(v: string): string {
     return v.trim();
@@ -178,117 +178,24 @@ export default class Parser {
     return trackList;
   }
 
-  parseRegionsList(value: string): RegionsList {
-    const regionsList: RegionsList = [];
-    let matches;
-    var contents = value.split('\n');
+  parseTimings(value: string): Timings {
+    const contents = value.split('\n');
 
-    for (let i = 0; i < contents.length; i++) {
-      const row = contents[i].trim();
-
-      // Adobe Audition
-      matches = row.match(/(\d{1,3}):(\d{2}).(\d{3,6})/i);
-      if (null != matches) {
-        const mn = Number(matches[1]);
-        // do not Number seconds so the value preserves a leading zero (for less than 10)
-        // and we don't use it in numeric calculations anyway
-        const sc = matches[2];
-        const ms = Number(matches[3]);
-        const fr = Math.floor(parseFloat(0 + '.' + ms) * 75);
-
-        const timeEntry = mn + ':' + sc + ':' + fr;
-        regionsList.push(timeEntry);
-        continue;
-      }
-
-      // Soundforge or Audition
-      matches = row.match(/(\d{2}:\d{2}:\d{2}[\.,:]\d{2})/i);
-      if (null != matches) {
-        let time = matches[0].split(':');
-        const hr = time.shift() || '0';
-        let mn: string | number = time.shift() || '0';
-
-        // frames can be separated by .(dot) or :(colon) or ,(comma)
-        if (time.length > 1) {
-          var sc = time.shift();
-          var fr = time.shift();
-        } else {
-          let sc_fr = time.shift() || '';
-          let sc_fr_split;
-          switch (true) {
-            case -1 != sc_fr.indexOf('.'):
-              sc_fr_split = sc_fr.split('.');
-              var sc = sc_fr_split.shift();
-              var fr = sc_fr_split.shift();
-              break;
-            case -1 != sc_fr.indexOf(','):
-              sc_fr_split = sc_fr.split(',');
-              var sc = sc_fr_split.shift();
-              var fr = sc_fr_split.shift();
-              break;
-          }
-        }
-
-        mn = parseInt(mn, 10) + parseInt(hr, 10) * 60;
-        const timeEntry = (mn < 10 ? '0' + mn : mn) + ':' + sc + ':' + fr;
-        regionsList.push(timeEntry);
-
-        continue;
-      }
-
-      // find Nero/Winamp formats mm(m):ss(:|.)ii
-      matches = row.match(/(\d{2,3}:\d{2}[\.:]\d{2})/i);
-      if (null != matches) {
-        var time = matches[0].split(':');
-        var mn = time.shift();
-        if (time.length == 1) {
-          var sc_fr = time[0].split('.');
-          var sc = sc_fr.shift();
-          var fr = sc_fr.shift();
-        } else {
-          var sc = time.shift();
-          var fr = time.shift();
-        }
-
-        const timeEntry = mn + ':' + sc + ':' + fr;
-        regionsList.push(timeEntry);
-
-        continue;
-      }
-
-      // Audacity
-      matches = row.match(/(\d{1,5}).(\d{6})/i);
-      if (null != matches) {
-        const milliseconds = matches[2];
-        const seconds = Number(matches[1]) || 0;
-        const minutes = Math.floor(seconds / 60);
-
-        let mn = minutes > 0 ? minutes : 0;
-        let sc = seconds % 60;
-        // frames can not be more than 74, so floor them instead of round
-        const fr = Math.floor(parseFloat(0 + '.' + milliseconds) * 75);
-
-        const timeEntry = (mn < 10 ? '0' + mn : mn) + ':' + (sc < 10 ? '0' + sc : sc) + ':' + (fr < 10 ? '0' + fr : fr);
-        regionsList.push(timeEntry);
-
-        continue;
-      }
-
-      // try to recognise raw cue timings
-      matches = row.match(/(\d{2}:\d{2}:\d{2})/i);
-      if (null != matches) {
-        time = matches[0].split(':');
-        const mn = parseInt(time[0], 10);
-        const sc = parseInt(time[1], 10);
-        const fr = parseInt(time[2], 10);
-
-        const timeEntry = (mn < 10 ? '0' + mn : mn) + ':' + (sc < 10 ? '0' + sc : sc) + ':' + (fr < 10 ? '0' + fr : fr);
-        regionsList.push(timeEntry);
-
-        continue;
+    // define a parser
+    let regionsListParser: typeof Parser.regionsListParsers[0] | undefined;
+    for (const parser of Parser.regionsListParsers) {
+      const timeEntry = parser(contents[0] || '');
+      if (timeEntry) {
+        regionsListParser = parser;
+        break;
       }
     }
 
-    return regionsList;
+    if (regionsListParser === undefined) return [];
+
+    // apply the parser for every line
+    return contents
+      .map((row) => regionsListParser!(row))
+      .filter((timeEntry): timeEntry is TimeEntry => timeEntry !== undefined);
   }
 }

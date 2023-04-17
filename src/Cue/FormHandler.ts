@@ -25,7 +25,7 @@ export default class FormHandler {
     const formattedFileName = this.formatter.formatFilename(this.parser.parseFileName(fileName), fileType);
     const formattedTracklist = this.formatter.formatTracklist(
       this.parser.parseTrackList(trackList),
-      this.parser.parseRegionsList(regionsList),
+      this.parser.parseTimings(regionsList),
       performer
     );
 

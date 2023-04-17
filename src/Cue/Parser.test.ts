@@ -1,3 +1,4 @@
+import { timeEntryToString } from './Formatter';
 import Parser, { ParserHelper } from './Parser';
 
 const parserHelper = new ParserHelper();
@@ -58,13 +59,13 @@ describe('Parser', () => {
       ' 5541.293333    7143.640000     19': '92:21:21',
       ' 50:10:01 \n': '50:10:01',
       '01 120:10.01 (Split)': '120:10:01',
-      'Marker 02 0:09.623': '0:09:46',
+      'Marker 02 0:09.623': '00:09:46',
     };
 
     Object.keys(regionsList).forEach((key: string) => {
-      const actual = parser.parseRegionsList(key);
+      const actual = parser.parseTimings(key);
       const expected = regionsList[key];
-      expect(actual[0]).toBe(expected);
+      expect(timeEntryToString(actual[0])).toBe(expected);
     });
   });
 });

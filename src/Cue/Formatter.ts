@@ -1,4 +1,4 @@
-import { RegionsList, TrackList } from '../types';
+import { Timings, TimeEntry, TrackList } from '../types';
 
 export default class Formatter {
   formatPerformer(value: string) {
@@ -12,13 +12,13 @@ export default class Formatter {
   formatFilename(name: string, type: string) {
     return `FILE "${name}" ${type}\n`;
   }
-  
-  formatTracklist(tracklist: TrackList, regionsList: RegionsList, globalPerformer: string) {
+
+  formatTracklist(tracklist: TrackList, regionsList: Timings, globalPerformer: string) {
     let output = '';
     for (var i = 0; i < tracklist.length; i++) {
       const row = tracklist[i];
       const performer = row.performer || globalPerformer;
-      const time = regionsList[i] || row.time;
+      const time = regionsList[i] ? timeEntryToString(regionsList[i]) : row.time;
 
       output += '  TRACK ' + (row.track < 10 ? '0' + row.track : row.track) + ' AUDIO\n';
       output += '    PERFORMER "' + performer + '"\n';
@@ -34,3 +34,10 @@ export default class Formatter {
     return output;
   }
 }
+
+export const timeEntryToString = (timeEntry: TimeEntry): string => {
+  const mn = timeEntry.mn.toString(10).padStart(2, '0');
+  const sc = timeEntry.sc.toString(10).padStart(2, '0');
+  const fr = timeEntry.fr.toString(10).padStart(2, '0');
+  return `${mn}:${sc}:${fr}`;
+};

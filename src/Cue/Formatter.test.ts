@@ -1,5 +1,4 @@
-import React from 'react';
-import { RegionsList, TrackList } from '../types';
+import { Timings, TrackList } from '../types';
 import Formatter from './Formatter';
 
 const formatter = new Formatter();
@@ -25,7 +24,7 @@ describe('Formatter', () => {
   });
   test('formatTracklist_1', () => {
     const tracklist: TrackList = [{ track: 1, performer: '', title: 'Miami Echoes', time: '02:41:00' }];
-    const regionsList: RegionsList = [];
+    const regionsList: Timings = [];
     const globalPerformer = 'Bobina';
 
     var actual = formatter.formatTracklist(tracklist, regionsList, globalPerformer);
@@ -39,7 +38,7 @@ describe('Formatter', () => {
   });
   test('formatTracklist_2', () => {
     const tracklist: TrackList = [{ track: 1, performer: '', title: 'Miami Echoes', time: '' }];
-    const regionsList: RegionsList = ['02:41:00'];
+    const regionsList: Timings = [{ mn: 2, sc: 41, fr: 0 }]; //['02:41:00'];
     const globalPerformer = 'Bobina';
 
     var actual = formatter.formatTracklist(tracklist, regionsList, globalPerformer);
