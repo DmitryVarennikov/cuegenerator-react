@@ -12,6 +12,7 @@ export default class Formatter {
   formatFilename(name: string, type: string) {
     return `FILE "${name}" ${type}\n`;
   }
+  
   formatTracklist(tracklist: TrackList, regionsList: RegionsList, globalPerformer: string) {
     let output = '';
     for (var i = 0; i < tracklist.length; i++) {
