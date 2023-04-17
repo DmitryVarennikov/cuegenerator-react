@@ -25,10 +25,4 @@ jobs:
           projectId: cuegenerator
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
-      - run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-      - name: Standard Version
-        uses: qzb/standard-version-action@v1.0.5
-      - run: git push --follow-tags origin main
 
