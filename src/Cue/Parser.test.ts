@@ -1,5 +1,3 @@
-import React from 'react';
-import { RegionsList } from '../types';
 import Parser, { ParserHelper } from './Parser';
 
 const parserHelper = new ParserHelper();
@@ -52,7 +50,7 @@ describe('Parser', () => {
     ];
     expect(actual).toStrictEqual(expected);
   });
-  test.only('parseRegionsList', () => {
+  test('parseRegionsList', () => {
     const regionsList: { [key: string]: string } = {
       ' Marker 06      01:10:38:52': '70:38:52',
       ' 22                     02:01:50.04': '121:50:04',
@@ -60,7 +58,7 @@ describe('Parser', () => {
       ' 5541.293333    7143.640000     19': '92:21:21',
       ' 50:10:01 \n': '50:10:01',
       '01 120:10.01 (Split)': '120:10:01',
-      'Marker 02 0:09.623': '0:09:46'
+      'Marker 02 0:09.623': '0:09:46',
     };
 
     Object.keys(regionsList).forEach((key: string) => {
@@ -132,7 +130,7 @@ describe('ParserHelper', () => {
         time: '999:02:28',
         residue: 'Mossy',
       },
-      // separateTime plays in tandem with castTime 
+      // separateTime plays in tandem with castTime
       '2:28 NO LEADING ZERO': {
         time: '2:28',
         residue: 'NO LEADING ZERO',
