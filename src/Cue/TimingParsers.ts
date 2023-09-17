@@ -91,7 +91,7 @@ export const audacity = (value: string): TimeEntry | undefined => {
 
 // try to recognise raw cue timings
 export const standard = (value: string): TimeEntry | undefined => {
-  const matches = value.match(/(\d{2}:\d{2}:\d{2})/i);
+  const matches = value.match(/(\d{1,2}:\d{2}:\d{2})/i);
   if (null === matches) return;
 
   const time = matches[0].split(':');
